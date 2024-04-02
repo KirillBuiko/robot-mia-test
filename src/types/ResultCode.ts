@@ -9,7 +9,7 @@ const enum ResultCode{
 }
 
 export const ResultCodeDescription = {
-    [ResultCode.OK]: "Success",
+    [ResultCode.OK]: "OK",
     [ResultCode.FAIL]: "Fail",
 
     [ResultCode.EMAIL_OR_PHONE_IS_BUSY]: "Email or phone is busy",

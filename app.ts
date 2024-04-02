@@ -1,5 +1,7 @@
-import {Configs} from '@/Configs';
+import express from '@/api';
+import {Configs} from '@/configs';
 import {AppDataSource} from '@/typeorm';
+import {prodDBController} from "@/db-controller/prod";
 
 async function assertDatabaseConnectionOk() {
     console.log(`Checking database connection...`);
@@ -15,5 +17,9 @@ async function assertDatabaseConnectionOk() {
 
 (async function init() {
     await assertDatabaseConnectionOk();
-    console.log(`Starting typeorm on port ${Configs.EXPRESS_PORT}...`);
+    console.log(`Starting TypeORM + Express on port ${Configs.EXPRESS_PORT}...`);
+
+    express(prodDBController).listen(Configs.EXPRESS_PORT, () => {
+        console.log(`Express server started on ${Configs.HOST}:${Configs.EXPRESS_PORT}.`);
+    });
 })()

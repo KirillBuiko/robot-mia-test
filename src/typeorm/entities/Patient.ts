@@ -8,13 +8,13 @@ export class Patient {
     @Column("text")
     phone: string
 
-    @Column("text")
+    @Column({type: "text", default: "Jane"})
     name: string
 
     @Column("text")
     email: string
 
-    @Column("text")
+    @Column({type: "text", default: "male"})
     gender: Gender
 }
 
