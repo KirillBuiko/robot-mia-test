@@ -8,10 +8,12 @@ export class Schedule {
     id: string
 
     @ManyToOne(() => Doctor, (doctor) => doctor.id)
-    doctor_id: string
+    doctor: Doctor
 
-    @ManyToOne(() => Patient, (patient) => patient.id)
-    patient_id: string
+    @ManyToOne(() => Patient, (patient) => patient.id, {
+        nullable: true
+    })
+    patient: Patient
 
     @Column("int")
     time_from: number
@@ -23,11 +25,11 @@ export class Schedule {
         type: "boolean",
         default: false
     })
-    is_free: number
+    is_free: boolean
 
     @Column({
         type: "int",
-        default: false
+        nullable: true
     })
     type: AppointmentType
 }

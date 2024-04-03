@@ -1,8 +1,8 @@
 import {Request, Response, Router} from "express";
 import {IDBController} from "@/actions/interfaces/IDBController";
 import {RequestHandlers} from "@/api/routers/RequestHandlers";
-import {RegistrationDto} from "@/dtos/registration.dto";
 import {ScheduleActions} from "@/actions/ScheduleActions";
+import {Configs} from "@/configs";
 
 export class ScheduleRequestHandlers extends RequestHandlers {
     private scheduleActionsHandler: ScheduleActions;
@@ -17,15 +17,23 @@ export class ScheduleRequestHandlers extends RequestHandlers {
             this.takeSlot.bind(this)]);
         router.get('/get-schedule', [
             this.getSchedule.bind(this)]);
+
+        router.post('/DEV_create-schedule-slots', [
+            this.createScheduleSlots.bind(this)]);
     }
 
-    async takeSlot(req: Request<RegistrationDto>, res: Response) {
+    async takeSlot(req: Request, res: Response) {
         const response = await this.scheduleActionsHandler.takeSlot(req.body);
         this.handleRequestResult(response, res);
     }
 
-    async getSchedule(req: Request<RegistrationDto>, res: Response) {
+    async getSchedule(req: Request, res: Response) {
         const response = await this.scheduleActionsHandler.getSchedule(req.body);
+        this.handleRequestResult(response, res);
+    }
+
+    async createScheduleSlots(req: Request, res: Response) {
+        const response = await this.scheduleActionsHandler.createScheduleSlots(Configs.SCHEDULE_OPTIONS, req.body.endDate);
         this.handleRequestResult(response, res);
     }
 }

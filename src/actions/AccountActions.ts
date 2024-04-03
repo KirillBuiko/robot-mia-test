@@ -9,10 +9,10 @@ export class AccountActions {
 
     async registration(regData: RegistrationDto): Promise<ResponseObject<string>> {
         if (!regData.email || !regData.phone) return {code: ResultCode.DATA_IS_INCOMPLETE};
-        if (await this.dbController.patient.getUserIdByEmailOrPhone(regData.email, regData.phone) != null)
+        if (await this.dbController.patient.getPatientIdByEmailOrPhone(regData.email, regData.phone) != null)
             return {code: ResultCode.EMAIL_OR_PHONE_IS_BUSY}
 
-        await this.dbController.patient.saveNewUser(regData);
+        await this.dbController.patient.saveNewPatient(regData);
         return {code: ResultCode.OK}
     }
 }
