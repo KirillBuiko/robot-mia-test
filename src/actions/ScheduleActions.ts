@@ -58,7 +58,7 @@ export class ScheduleActions {
             return {code: ResultCode.SLOT_NOT_FOUND};
         } else if (!slot.is_free) {
             return {code: ResultCode.SLOT_NOT_FREE};
-        } else if (slot.time_from > Date.now()) {
+        } else if (slot.time_from < Date.now()) {
             return {code: ResultCode.SLOT_EXPIRED};
         }
 

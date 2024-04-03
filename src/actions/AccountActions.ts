@@ -12,7 +12,7 @@ export class AccountActions {
         if (await this.dbController.patient.getPatientIdByEmailOrPhone(regData.email, regData.phone) != null)
             return {code: ResultCode.EMAIL_OR_PHONE_IS_BUSY}
 
-        await this.dbController.patient.saveNewPatient(regData);
-        return {code: ResultCode.OK}
+        const id = await this.dbController.patient.saveNewPatient(regData);
+        return {code: ResultCode.OK, result: id}
     }
 }

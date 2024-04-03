@@ -15,10 +15,17 @@ export class DoctorRequestHandlers extends RequestHandlers {
     attachRouter(router: Router) {
         router.post('/create-doctor', [
             this.createDoctor.bind(this)])
+        router.get('/get-doctors', [
+            this.getDoctors.bind(this)])
     }
 
     async createDoctor(req: Request<CreateDoctorDto>, res: Response) {
         const response = await this.doctorActionsHandler.createDoctor(req.body);
+        this.handleRequestResult(response, res);
+    }
+
+    async getDoctors(req: Request<CreateDoctorDto>, res: Response) {
+        const response = await this.doctorActionsHandler.getDoctors();
         this.handleRequestResult(response, res);
     }
 }
